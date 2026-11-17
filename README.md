@@ -24,3 +24,9 @@ npm run build    # gotowa strona w folderze dist/
 ## Publikacja na hostingu
 
 Po `npm run build` wgraj **zawartość** folderu `dist/` na serwer (np. przez FTP do `public_html`).
+
+## Zdjęcia
+
+Zdjęcia w `src/assets/` pochodzą z [Pexels](https://www.pexels.com) (licencja Pexels: darmowe użycie
+komercyjne, bez wymogu podpisu). Najlepiej z czasem podmienić je na **własne zdjęcia** – auto firmowe,
+ekipa przy pracy, prawdziwe realizacje. Wystarczy podmienić plik o tej samej nazwie.
