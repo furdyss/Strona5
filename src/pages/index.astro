@@ -1,0 +1,300 @@
+---
+import '@fontsource-variable/bodoni-moda/opsz.css';
+import '@fontsource-variable/figtree';
+import { site } from '../config';
+import { districts, suburbs, allSuburbs } from '../areas';
+
+const title = `Montaż zamków, serwis Gerda i ślusarz 24h – Warszawa | ${site.name}`;
+const description = `Zabezpieczenia drzwi i sejfów: montaż i wymiana zamków, serwis Gerda, otwieranie sejfów, mieszkań i samochodów, klucze i immobilizery. Całą dobę – Warszawa, okolice i przedmieścia. Tel. ${site.phoneDisplay}.`;
+
+const services = [
+  { name: 'Montaż i wymiana zamków', text: 'Dobieramy zamek i wkładkę do drzwi, do budynku i do tego, co chronisz. Wymieniamy też zamki po przeprowadzce i próbie włamania.' },
+  { name: 'Serwis i naprawa zamków Gerda', text: 'Regulacja, naprawa i wymiana zamków oraz wkładek Gerda w drzwiach antywłamaniowych.' },
+  { name: 'Awaryjne otwieranie sejfów', text: 'Sejfy domowe i firmowe z zamkiem kluczowym, szyfrowym i elektronicznym. Dyskretnie, na miejscu.' },
+  { name: 'Awaryjne otwieranie drzwi mieszkań', text: 'Także drzwi antywłamaniowe z zamkami wysokiej klasy. Najpierw metody, które nie uszkadzają zamka.' },
+  { name: 'Awaryjne otwieranie samochodów', text: 'Bez wybijania szyb i bez śladów na karoserii.' },
+  { name: 'Naprawa stacyjek i immobilizerów', text: 'Gdy auto przestaje rozpoznawać kluczyk albo stacyjka się blokuje.' },
+  { name: 'Dorabianie kluczy samochodowych', text: 'Kluczyki z transponderem i pilotem, zaprogramowane do Twojego auta.' },
+];
+
+const ladder = [
+  { level: 'Bez klasy', text: 'Wkładka bez oznaczenia odporności. Często spotykana w starszych drzwiach i najłatwiejsza do pokonania.' },
+  { level: 'Klasa A', text: 'Podstawowa ochrona. Wystarcza do drzwi wewnętrznych, piwnic i komórek lokatorskich.' },
+  { level: 'Klasa B', text: 'Lepsza ochrona przed otwarciem bez klucza. Rozsądne minimum dla drzwi wejściowych.' },
+  { level: 'Klasa C', text: 'Najwyższa klasa w polskiej klasyfikacji wkładek. Polecamy do mieszkań, domów i biur.' },
+];
+
+const business = [
+  { name: 'Biura i lokale usługowe', text: 'Wymiana zamków po zmianie najemcy, systemy klucza, w którym każdy pracownik otwiera tylko swoje drzwi.' },
+  { name: 'Wspólnoty i zarządcy', text: 'Serwis zamków w drzwiach klatek, piwnic i pomieszczeń technicznych.' },
+  { name: 'Właściciele mieszkań na wynajem', text: 'Wymiana wkładki między najemcami, żeby żaden stary klucz nie otwierał już drzwi.' },
+];
+
+const faq = [
+  { q: 'Którą wkładkę wybrać do drzwi wejściowych?', a: 'Do mieszkania lub domu polecamy wkładkę klasy C. Ważne jest też dopasowanie długości wkładki do drzwi. Wystająca wkładka jest słabszym punktem, nawet jeśli ma wysoką klasę.' },
+  { q: 'Czy serwisujecie drzwi z zamkami Gerda?', a: 'Tak. Naprawiamy, regulujemy i wymieniamy zamki oraz wkładki Gerda.' },
+  { q: 'Czy otworzycie sejf, do którego nie mam szyfru?', a: 'Tak, po potwierdzeniu, że jesteś właścicielem sejfu lub masz prawo do jego zawartości.' },
+  { q: 'Czy pracujecie poza godzinami biura?', a: 'Tak, całą dobę. Montaż w firmie możemy umówić także wieczorem lub w weekend, żeby nie przeszkadzać w pracy.' },
+  { q: 'Jaki obszar obsługujecie?', a: `Każdą dzielnicę Warszawy, okolice i przedmieścia, w tym m.in. ${allSuburbs.slice(18, 24).join(', ')}.` },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Locksmith',
+  name: site.name,
+  telephone: site.phoneHref,
+  url: site.url,
+  openingHours: 'Mo-Su 00:00-23:59',
+  areaServed: [{ '@type': 'City', name: 'Warszawa' }, ...allSuburbs.map((n) => ({ '@type': 'City', name: n }))],
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Usługi ślusarskie', itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.name } })) },
+};
+---
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={site.url + '/'} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#14213D" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body>
+  <a class="skip" href="#tresc">Przejdź do treści</a>
+
+  <header class="top">
+    <a class="brand" href="/">{site.name}</a>
+    <nav aria-label="Główna">
+      <a href="#uslugi">Usługi</a>
+      <a href="#klasy">Klasy zamków</a>
+      <a href="#firmy">Dla firm</a>
+      <a class="top-call" href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a>
+    </nav>
+  </header>
+
+  <main id="tresc">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Zamek, który nie ustępuje.</h1>
+        <p>Montujemy i serwisujemy zabezpieczenia drzwi, otwieramy sejfy, mieszkania i samochody. Całą dobę w Warszawie, okolicach i na przedmieściach.</p>
+        <div class="hero-cta">
+          <a class="btn" href={`tel:${site.phoneHref}`}>Zadzwoń: {site.phoneDisplay}</a>
+          <a class="link" href="#klasy">Jak dobrać wkładkę</a>
+        </div>
+      </div>
+      <svg class="cylinder" viewBox="0 0 400 300" role="img" aria-label="Przekrój wkładki zamka z zapadkami">
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M40 110 H360 V190 H40 Z" />
+          <circle cx="200" cy="230" r="34" />
+          <path d="M168 190 L176 220 M232 190 L224 220" />
+          <path d="M60 150 H340" stroke-dasharray="3 6" opacity=".55" />
+          {[0, 1, 2, 3, 4, 5].map((i) => {
+            const x = 78 + i * 46;
+            const cut = [18, 30, 12, 26, 20, 34][i];
+            return (
+              <g>
+                <rect x={x} y={40} width="20" height={70 - cut + 8} rx="3" />
+                <path d={`M${x + 10} 40 v-14 m-6 4 l6 -4 6 4`} opacity=".55" />
+                <rect class="pin" x={x} y={118 - cut + 8} width="20" height={cut + 22} rx="3" />
+              </g>
+            );
+          })}
+        </g>
+      </svg>
+    </section>
+
+    <section class="services" id="uslugi" aria-labelledby="h-uslugi">
+      <h2 id="h-uslugi">Usługi</h2>
+      <ul>
+        {services.map((s) => (
+          <li>
+            <h3>{s.name}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="ladder" id="klasy" aria-labelledby="h-klasy">
+      <div class="ladder-head">
+        <h2 id="h-klasy">Skala odporności wkładek</h2>
+        <p>Wkładka to serce zamka i najczęstszy cel włamywacza. Jej klasa mówi, jak trudno otworzyć ją bez klucza. Przy montażu doradzimy, która ma sens w Twoich drzwiach.</p>
+      </div>
+      <ol>
+        {ladder.map((l, i) => (
+          <li style={`--lvl:${i}`}>
+            <span class="bar" aria-hidden="true"></span>
+            <h3>{l.level}</h3>
+            <p>{l.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="business" id="firmy" aria-labelledby="h-firmy">
+      <h2 id="h-firmy">Dla firm, wspólnot i właścicieli najmu</h2>
+      <div class="business-grid">
+        {business.map((b) => (
+          <div>
+            <h3>{b.name}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="area" aria-labelledby="h-obszar">
+      <h2 id="h-obszar">Warszawa, każda dzielnica. Okolice i przedmieścia.</h2>
+      <div class="area-grid">
+        <div>
+          <h3>Dzielnice Warszawy</h3>
+          <ul class="cols">
+            {districts.map((d) => <li>{d}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>Okolice i przedmieścia</h3>
+          {Object.entries(suburbs).map(([dir, list]) => (
+            <p class="sub"><em>{dir}.</em> {list.join(', ')}</p>
+          ))}
+          <p class="sub-note">Miejscowości spoza listy obsługujemy po wcześniejszym telefonie.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="h-faq">
+      <h2 id="h-faq">Pytania</h2>
+      <div>
+        {faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="foot-brand">{site.name}</p>
+    <p>Zabezpieczenia i ślusarz całodobowy. Warszawa, okolice i przedmieścia.</p>
+    <a class="btn" href={`tel:${site.phoneHref}`}>Zadzwoń: {site.phoneDisplay}</a>
+  </footer>
+
+  <a class="dock" href={`tel:${site.phoneHref}`}>Zadzwoń: {site.phoneDisplay}</a>
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --navy: #14213D;
+    --navy-2: #1C2C4F;
+    --graphite: #2B303A;
+    --silver: #C8CDD5;
+    --steel: #8FA3BF;
+    --paper: #F7F8FA;
+    --muted: #5A6170;
+    --rule: #DADEE5;
+    --serif: 'Bodoni Moda Variable', 'Didot', Georgia, serif;
+    --sans: 'Figtree Variable', system-ui, sans-serif;
+    --pad: clamp(1rem, 5vw, 5rem);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--graphite); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.65; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--steel); outline-offset: 4px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; margin: 0; line-height: 1.1; color: inherit; font-optical-sizing: none; font-variation-settings: 'opsz' 28; }
+  h3, .faq summary, .cols li, .sub em, .brand, .foot-brand { font-optical-sizing: none; font-variation-settings: 'opsz' 11; }
+  p { margin: 0; }
+
+  .skip { position: absolute; left: -999px; top: 0; background: var(--navy); color: #fff; padding: .75rem 1rem; z-index: 10; }
+  .skip:focus { left: 1rem; }
+
+  .top { background: var(--navy); color: var(--paper); display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem var(--pad); border-bottom: 1px solid var(--navy-2); }
+  .brand { font-family: var(--serif); font-size: 1.75rem; font-weight: 600; text-decoration: none; letter-spacing: .02em; }
+  .top nav { display: flex; align-items: center; gap: 2rem; }
+  .top nav a { text-decoration: none; color: var(--silver); }
+  .top nav a:hover { color: #fff; }
+  .top .top-call { color: #fff; font-weight: 600; border: 1px solid var(--steel); padding: .45rem 1rem; border-radius: 2px; }
+
+  .hero { background: var(--navy); color: var(--paper); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 3rem; align-items: center; padding: clamp(4rem, 9vw, 8rem) var(--pad); }
+  .hero h1 { font-size: clamp(3rem, 7.5vw, 6.5rem); font-weight: 500; font-variation-settings: 'opsz' 48; letter-spacing: -.015em; line-height: 1; max-width: 10ch; }
+  .hero-text p { margin: 2rem 0 2.5rem; max-width: 46ch; color: var(--silver); font-size: 1.15rem; }
+  .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
+  .link { color: var(--silver); text-underline-offset: .3em; }
+  .link:hover { color: #fff; }
+  .cylinder { width: 100%; height: auto; color: var(--steel); }
+  .cylinder .pin { fill: rgba(143, 163, 191, .22); }
+
+  .btn { display: inline-block; background: var(--paper); color: var(--navy); text-decoration: none; font-weight: 600; padding: 1rem 1.75rem; border-radius: 2px; }
+  .btn:hover { background: #fff; }
+
+  section h2 { font-size: clamp(2.1rem, 4vw, 3.4rem); color: var(--navy); }
+
+  .services { padding: clamp(4rem, 8vw, 7rem) var(--pad); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 3rem; }
+  .services ul { list-style: none; margin: 0; padding: 0; }
+  .services li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: .5rem 2.5rem; padding: 1.6rem 0; border-top: 1px solid var(--rule); }
+  .services li:last-child { border-bottom: 1px solid var(--rule); }
+  .services h3 { font-size: 1.6rem; color: var(--navy); }
+  .services p { color: var(--muted); max-width: 48ch; }
+
+  /* Skala odporności */
+  .ladder { background: #fff; padding: clamp(4rem, 8vw, 7rem) var(--pad); border-block: 1px solid var(--rule); }
+  .ladder-head { max-width: 46rem; margin-bottom: 3rem; }
+  .ladder-head p { margin-top: 1.25rem; color: var(--muted); }
+  .ladder ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; align-items: end; }
+  .ladder li { display: flex; flex-direction: column; }
+  .bar { display: block; height: calc(2.5rem + var(--lvl) * 3.25rem); background: linear-gradient(var(--navy), var(--navy-2)); opacity: calc(.4 + var(--lvl) * .2); margin-bottom: 1.25rem; border-radius: 2px 2px 0 0; }
+  .ladder li:last-child .bar { opacity: 1; box-shadow: inset 0 3px 0 var(--steel); }
+  .ladder h3 { font-size: 1.6rem; color: var(--navy); margin-bottom: .4rem; }
+  .ladder li p { color: var(--muted); font-size: 1rem; }
+
+  .business { padding: clamp(4rem, 8vw, 7rem) var(--pad); }
+  .business h2 { max-width: 20ch; margin-bottom: 2.5rem; }
+  .business-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  .business-grid > div { border-left: 1px solid var(--steel); padding-left: 1.5rem; }
+  .business h3 { font-size: 1.45rem; color: var(--navy); margin-bottom: .6rem; }
+  .business p { color: var(--muted); }
+
+  .area { background: var(--navy); color: var(--paper); padding: clamp(4rem, 8vw, 7rem) var(--pad); }
+  .area h2 { color: var(--paper); max-width: 22ch; margin-bottom: 3rem; }
+  .area-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 4rem; }
+  .area h3 { font-family: var(--sans); font-weight: 600; font-size: 1rem; color: var(--steel); margin-bottom: 1.25rem; }
+  .cols { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 2rem; }
+  .cols li { font-family: var(--serif); font-size: 1.3rem; padding: .3rem 0; break-inside: avoid; }
+  .sub { color: var(--silver); padding: .8rem 0; border-bottom: 1px solid var(--navy-2); }
+  .sub em { font-family: var(--serif); font-style: italic; color: #fff; font-size: 1.15rem; }
+  .sub-note { margin-top: 1.25rem; color: var(--silver); }
+
+  .faq { padding: clamp(4rem, 8vw, 7rem) var(--pad); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 3rem; }
+  .faq details { border-top: 1px solid var(--rule); }
+  .faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .faq summary { cursor: pointer; padding: 1.2rem 0; font-family: var(--serif); font-size: 1.35rem; color: var(--navy); }
+  .faq summary::marker { color: var(--steel); }
+  .faq details p { padding: 0 0 1.4rem; color: var(--muted); max-width: 62ch; }
+
+  .foot { background: var(--graphite); color: var(--silver); padding: 3rem var(--pad); display: grid; gap: .6rem; justify-items: start; }
+  .foot-brand { font-family: var(--serif); font-size: 1.75rem; color: #fff; }
+  .foot .btn { margin-top: 1rem; }
+
+  .dock { position: fixed; left: .75rem; right: .75rem; bottom: .75rem; z-index: 5; display: none; background: var(--navy); color: #fff; text-align: center; text-decoration: none; font-weight: 600; padding: 1rem; border: 1px solid var(--steel); box-shadow: 0 8px 24px rgba(20, 33, 61, .35); }
+
+  @media (max-width: 960px) {
+    .hero, .services, .faq, .area-grid { grid-template-columns: 1fr; }
+    .cylinder { max-width: 26rem; }
+    .ladder ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .business-grid { grid-template-columns: 1fr; }
+    .top nav a:not(.top-call) { display: none; }
+  }
+  @media (max-width: 640px) {
+    .services li { grid-template-columns: 1fr; }
+    .dock { display: block; }
+    .foot { padding-bottom: 6rem; }
+  }
+</style>
