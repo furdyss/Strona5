@@ -4,7 +4,7 @@ import '@fontsource-variable/figtree';
 import { site } from '../config';
 import { districts, suburbs, allSuburbs } from '../areas';
 
-const title = `Montaż zamków, serwis Gerda i ślusarz 24h – Warszawa | ${site.name}`;
+const title = `Pogotowie zamkowe 24h Warszawa – awaryjne otwieranie, montaż zamków, Gerda | ${site.name}`;
 const description = `Zabezpieczenia drzwi i sejfów: montaż i wymiana zamków, serwis Gerda, otwieranie sejfów, mieszkań i samochodów, klucze i immobilizery. Całą dobę – Warszawa, okolice i przedmieścia. Tel. ${site.phoneDisplay}.`;
 
 const services = [
@@ -293,8 +293,11 @@ const schema = {
     .top nav a:not(.top-call) { display: none; }
   }
   @media (max-width: 640px) {
+    .top .top-call { display: none; }
+    .brand { font-size: 1.45rem; }
     .services li { grid-template-columns: 1fr; }
     .dock { display: block; }
     .foot { padding-bottom: 6rem; }
   }
+  .top .top-call { white-space: nowrap; }
 </style>
